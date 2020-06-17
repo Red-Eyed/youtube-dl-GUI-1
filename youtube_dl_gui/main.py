@@ -1,25 +1,12 @@
 # For getting the icon to work
-import ctypes
 import os
-import sys
-
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
 
 from GUI import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 from Threads.Download import Download
 from Threads.PostProcessor import PostProcessor
 from UI.gui import Ui_MainWindow
-
-try:
-    ctypes. \
-        windll. \
-        shell32. \
-        SetCurrentProcessExplicitAppUserModelID(
-        'my_company.my_product.sub_product.version'
-    )
-except AttributeError:
-    pass
 
 # Setting custom variables
 desktop_path = os.path.join(os.path.expanduser('~'), "Desktop")
@@ -277,8 +264,13 @@ class MainWindow(QMainWindow):
         self.close()
 
 
-if __name__ == "__main__":
+def main():
+    import sys
     app = QApplication(sys.argv)
     myapp = MainWindow()
     myapp.show()
     sys.exit(app.exec_())
+
+
+if __name__ == "__main__":
+    main()
