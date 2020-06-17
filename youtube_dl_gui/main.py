@@ -1,5 +1,6 @@
 # For getting the icon to work
 import os
+from pathlib import Path
 
 from GUI import *
 from PyQt5.QtGui import *
@@ -9,7 +10,7 @@ from Threads.PostProcessor import PostProcessor
 from UI.gui import Ui_MainWindow
 
 # Setting custom variables
-desktop_path = os.path.join(os.path.expanduser('~'), "Desktop")
+downloads_dir = str(Path.home() / "Downloads")
 try:
     app_root = os.path.dirname(os.path.abspath(__file__))
 except NameError:  # We are the main py2exe script, not a module
@@ -25,9 +26,7 @@ class MainWindow(QMainWindow):
         path = os.path.join(app_root, 'UI', 'images', 'icon.png')
         self.setWindowIcon(QIcon(path))
         self.batch_dialog = BatchAddDialogue(self)
-        self.ui.saveToLineEdit.setText(desktop_path)
-        self.ui.BrowseConvertToLineEdit.setText(os.getcwd())
-        self.ui.BrowseConvertLineEdit.files = []
+        self.ui.saveToLineEdit.setText(downloads_dir)
         self.ui.statusbar.showMessage('Ready.')
         self.set_connections()
 
@@ -45,9 +44,6 @@ class MainWindow(QMainWindow):
         self.ui.download_btn.clicked.connect(self.handleButton)
         self.ui.browse_btn.clicked.connect(self.set_destination)
         self.ui.BatchAdd.clicked.connect(self.batch_file)
-        self.ui.BrowseConvertButton.clicked.connect(self.convert_file_browse)
-        self.ui.ConvertMultipleButton.clicked.connect(self.convert_button)
-        self.ui.BrowseConvertToButton.clicked.connect(self.browse_convert_destination)
 
     def batch_file(self):
         self.batch_dialog.exec_()
