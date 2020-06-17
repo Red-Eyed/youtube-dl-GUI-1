@@ -1,19 +1,18 @@
-import sys
-import os
-
-from PyQt5 import QtGui
-from PyQt5 import QtCore
-
-from UI.gui import Ui_MainWindow
-from GUI.BatchAddUrls import BatchAddDialogue
-from GUI.LicenseDialog import LicenseDialogue
-from GUI.AboutDialog import AboutDialog
-from Threads.Download import Download
-from Threads.PostProcessor import PostProcessor
-
-
 # For getting the icon to work
 import ctypes
+import os
+import sys
+
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+
+from GUI.AboutDialog import AboutDialog
+from GUI.BatchAddUrls import BatchAddDialogue
+from GUI.LicenseDialog import LicenseDialogue
+from Threads.Download import Download
+from Threads.PostProcessor import PostProcessor
+from UI.gui import Ui_MainWindow
+
 try:
     ctypes.\
         windll.\
@@ -33,13 +32,13 @@ except NameError:  # We are the main py2exe script, not a module
     app_root = os.path.dirname(os.path.abspath(sys.argv[0]))
 
 
-class MainWindow(QtGui.QMainWindow):
-    def __init__(self, parent=None):
-        QtGui.QMainWindow.__init__(self, parent)
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         path = os.path.join(app_root, 'UI', 'images', 'icon.png')
-        self.setWindowIcon(QtGui.QIcon(path))
+        self.setWindowIcon(QIcon(path))
         self.batch_dialog = BatchAddDialogue(self)
         self.ui.saveToLineEdit.setText(desktop_path)
         self.ui.BrowseConvertToLineEdit.setText(os.getcwd())
@@ -51,7 +50,7 @@ class MainWindow(QtGui.QMainWindow):
         self.complete_url_list = {}
         self.convert_list = []
         self.thread_pool = {}
-        self.ui.tableWidget.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.Stretch)
+        self.ui.tableWidget.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
         self.rowcount = 0
 
         self.connect_menu_action()
@@ -75,12 +74,12 @@ class MainWindow(QtGui.QMainWindow):
             return
 
     def set_destination(self):
-        file_name = str(QtGui.QFileDialog.getExistingDirectory(self, "Select Directory"))
+        file_name = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
         if file_name is not '':
             self.ui.saveToLineEdit.setText(file_name)
 
     def browse_convert_destination(self):
-        file_name = str(QtGui.QFileDialog.getExistingDirectory(self, "Select Directory"))
+        file_name = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
         if file_name is not '':
             self.ui.BrowseConvertToLineEdit.setText(file_name)
 
@@ -89,7 +88,7 @@ class MainWindow(QtGui.QMainWindow):
         out_path = str(self.ui.BrowseConvertToLineEdit.text())
         delete_temp = self.ui.DeleteFileCheckBox.isChecked()
         if len(self.ui.BrowseConvertLineEdit.files) < 1:
-            QtGui.QMessageBox.information(self, "Error!","No files given!")
+            QMessageBox.information(self, "Error!","No files given!")
             return
 
         for file_path in self.ui.BrowseConvertLineEdit.files:
@@ -97,9 +96,9 @@ class MainWindow(QtGui.QMainWindow):
 
     def convert_file_browse(self):
         file_names = [str(file_n) for file_n in list(
-            QtGui.QFileDialog.getOpenFileNames(self, "Select files",
-                filter=QtCore.QString('Videos (*.mp4 *.ogg *.webm *.flv *.mkv)')
-            ))
+            QFileDialog.getOpenFileNames(self, "Select files",
+                                               filter=str('Videos (*.mp4 *.ogg *.webm *.flv *.mkv)')
+                                               ))
         ]
         if len(file_names) > 1:
             self.ui.BrowseConvertLineEdit.setText('{} Files selected'.format(len(file_names)))
@@ -155,7 +154,7 @@ class MainWindow(QtGui.QMainWindow):
         quality = False
         if self.ui.ConvertCheckBox.isChecked():
             quality = str(self.ui.ConvertComboBox.currentText())
-        print row, self.rowcount
+        print(row, self.rowcount)
         options = {
             'url': url,
             'directory': directory,
@@ -194,13 +193,13 @@ class MainWindow(QtGui.QMainWindow):
     def handleButton(self):
         url = str(self.ui.videoUrlLineEdit.text())
         if url is '':
-            QtGui.QMessageBox.information(self, "Error!","No url given!")
+            QMessageBox.information(self, "Error!","No url given!")
             return
         can_download, rowcount = self.can_download(url)
         if can_download:
             self.download_url(url, rowcount)
         else:
-            QtGui.QMessageBox.information(self, "Error!","This url is already being downloaded")
+            QMessageBox.information(self, "Error!","This url is already being downloaded")
             if len(self.url_list) is not 0:
                 if len(self.url_list) < 2:
                     self.ui.statusbar.showMessage('Downloading {0} file'.format(len(self.url_list)))
@@ -211,13 +210,13 @@ class MainWindow(QtGui.QMainWindow):
 
     def can_download(self,url):
         if url not in self.url_list:
-            for row, _url in self.complete_url_list.iteritems():
+            for row, _url in self.complete_url_list.items():
                 if url == _url:
-                    print "url already there:"
-                    print row, self.rowcount
+                    print("url already there:")
+                    print(row, self.rowcount)
                     return True, row
-            print "url not already there:"
-            print self.rowcount, self.rowcount
+            print("url not already there:")
+            print(self.rowcount, self.rowcount)
             return True, self.rowcount
         else:
             return False, self.rowcount
@@ -226,8 +225,8 @@ class MainWindow(QtGui.QMainWindow):
         try:
             self.url_list.remove(url)
         except:
-            print url
-            print self.url_list
+            print(url)
+            print(self.url_list)
             return
 
     def add_to_table(self, values):
@@ -235,7 +234,7 @@ class MainWindow(QtGui.QMainWindow):
         row = values[0]
         m = 0
         for key in values[1:]:
-            new_item = QtGui.QTableWidgetItem(key)
+            new_item = QTableWidgetItem(key)
             self.ui.tableWidget.setItem(row, m, new_item)
             m += 1
 
@@ -257,14 +256,14 @@ class MainWindow(QtGui.QMainWindow):
 
     def closeEvent(self, event):
         if len(self.url_list) is not 0:
-            msgBox = QtGui.QMessageBox(self)
+            msgBox = QMessageBox(self)
             msgBox.setWindowTitle("Exit")
             msgBox.setText("Some files are currently being downloaded.")
             msgBox.setInformativeText("Do you really want to close?")
-            msgBox.setStandardButtons(QtGui.QMessageBox.Close | QtGui.QMessageBox.Cancel)
-            msgBox.setDefaultButton(QtGui.QMessageBox.Cancel)
+            msgBox.setStandardButtons(QMessageBox.Close | QMessageBox.Cancel)
+            msgBox.setDefaultButton(QMessageBox.Cancel)
             ret = msgBox.exec_()
-            if ret == QtGui.QMessageBox.Cancel:
+            if ret == QMessageBox.Cancel:
                 event.ignore()
             else:
                 self.kill_all_threads()
@@ -272,7 +271,7 @@ class MainWindow(QtGui.QMainWindow):
             self.kill_all_threads()
 
     def kill_all_threads(self):
-        for key, value in self.thread_pool.iteritems():
+        for key, value in self.thread_pool.items():
             if value.done is False:
                 del value
             else:
@@ -281,7 +280,7 @@ class MainWindow(QtGui.QMainWindow):
 
 
 if __name__ == "__main__":
-    app = QtGui.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     myapp = MainWindow()
     myapp.show()
     sys.exit(app.exec_())

@@ -1,8 +1,9 @@
-from PyQt5 import QtGui, QtCore
-from UI.BatchAddUrls import Ui_BatchAdd
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QDialog
+from UI.BatchAdd import Ui_BatchAdd
 
 
-class BatchAddDialogue(QtGui.QDialog):
+class BatchAddDialogue(QDialog):
     def __init__(self, parent=None):
         super(BatchAddDialogue, self).__init__(parent, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
         self.ui = Ui_BatchAdd()
@@ -13,8 +14,8 @@ class BatchAddDialogue(QtGui.QDialog):
         self.ui.Add.clicked.connect(self.add_clicked)
 
     def browse_clicked(self):
-        file_name = str(QtGui.QFileDialog.getOpenFileName(
-            self, "Select txt file", filter=QtCore.QString('*.txt')
+        file_name = str(QFileDialog.getOpenFileName(
+            self, "Select txt file", filter=str('*.txt')
         ))
 
         if file_name is '':
@@ -25,7 +26,7 @@ class BatchAddDialogue(QtGui.QDialog):
 
     def add_clicked(self):
         if str(self.ui.UrlList.toPlainText()).strip() is '':
-            QtGui.QMessageBox.information(self, "Error!", "No urls given!")
+            QMessageBox.information(self, "Error!", "No urls given!")
             return
         else:
             self.download = True

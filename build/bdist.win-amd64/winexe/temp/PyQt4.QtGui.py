@@ -5,7 +5,7 @@ def __load():
         dirname = os.path.dirname(__loader__.archive)
     except NameError:
         dirname = sys.prefix
-    path = os.path.join(dirname, 'PyQt5.QtGui.pyd')
+    path = os.path.join(dirname, 'PyQt5.pyd')
     #print "py2exe extension module", __name__, "->", path
     mod = imp.load_dynamic(__name__, path)
 ##    mod.frozen = 1

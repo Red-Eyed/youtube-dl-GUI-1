@@ -5,7 +5,7 @@ import youtube_dl
 
 
 class Download(QtCore.QThread):
-    status_bar_signal = QtCore.pyqtSignal(QtCore.QString)
+    status_bar_signal = QtCore.pyqtSignal(str)
     remove_url_signal = QtCore.pyqtSignal(str)
     add_update_list_signal = QtCore.pyqtSignal([list])
     remove_row_signal = QtCore.pyqtSignal()
@@ -141,16 +141,16 @@ class Download(QtCore.QThread):
     @staticmethod
     def format_bytes(bytes):
         if bytes is None:
-            return u'N/A'
+            return 'N/A'
         if type(bytes) is str:
             bytes = float(bytes)
         if bytes == 0.0:
             exponent = 0
         else:
             exponent = int(math.log(bytes, 1024.0))
-        suffix = [u'B', u'KiB', u'MiB', u'GiB', u'TiB', u'PiB', u'EiB', u'ZiB', u'YiB'][exponent]
+        suffix = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'][exponent]
         converted = float(bytes) / float(1024 ** exponent)
-        return u'%.2f%s' % (converted, suffix)
+        return '%.2f%s' % (converted, suffix)
 
     def format_speed(self,speed):
         if speed is None:
