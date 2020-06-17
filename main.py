@@ -3,22 +3,20 @@ import ctypes
 import os
 import sys
 
-from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 
-from GUI.AboutDialog import AboutDialog
-from GUI.BatchAddUrls import BatchAddDialogue
-from GUI.LicenseDialog import LicenseDialogue
+from GUI import *
 from Threads.Download import Download
 from Threads.PostProcessor import PostProcessor
 from UI.gui import Ui_MainWindow
 
 try:
-    ctypes.\
-        windll.\
-        shell32.\
+    ctypes. \
+        windll. \
+        shell32. \
         SetCurrentProcessExplicitAppUserModelID(
-            'my_company.my_product.sub_product.version'
+        'my_company.my_product.sub_product.version'
     )
 except AttributeError:
     pass

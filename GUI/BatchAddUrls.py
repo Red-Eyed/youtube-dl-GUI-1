@@ -1,6 +1,6 @@
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QDialog
-from UI.BatchAdd import Ui_BatchAdd
+from UI.BatchAddUrls import Ui_BatchAdd
 
 
 class BatchAddDialogue(QDialog):

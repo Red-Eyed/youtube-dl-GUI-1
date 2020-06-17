@@ -1,6 +1,6 @@
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QDialog
-from UI.license import Ui_Dialog
+from UI.LicenseDialog import Ui_Dialog
 
 
 class LicenseDialogue(QDialog):
