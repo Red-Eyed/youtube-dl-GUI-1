@@ -1,9 +1,9 @@
 [tool.poetry]
 name = "youtube-dl-gui"
-version = "1.0.3"
+version = "1.0.4"
 description = "Yet another youtube-dl frontend written in python3 and qt5"
 authors = ["Vadym Stupakov <vadim.stupakov@gmail.com>"]
-homepage = "https://github.com/Red-Eyed/youtube-dl-gui-qt5"
+homepage = "https://github.com/Red-Eyed/youtube-dl-gui"
 readme = "README.md"
 license = "MIT"
 
