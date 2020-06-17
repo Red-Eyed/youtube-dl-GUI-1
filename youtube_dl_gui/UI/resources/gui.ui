@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>youtube-dl v0.3.5</string>
+   <string>youtube-dl</string>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
