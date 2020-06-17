@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "youtube_dl_gui"
-version = "1.0.1"
+name = "youtube-dl-gui"
+version = "1.0.2"
 description = "Yet another youtube-dl frontend written in python3 and qt5"
 authors = ["Vadym Stupakov <vadim.stupakov@gmail.com>"]
 homepage = "https://github.com/Red-Eyed/youtube-dl-gui-qt5"
 
 [tool.poetry.scripts]
-youtube_dl_gui = "youtube_dl_gui.main:main"
+youtube-dl-gui = "youtube_dl_gui.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.7"
