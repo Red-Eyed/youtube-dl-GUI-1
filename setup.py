@@ -5,7 +5,7 @@ sys.argv.append('py2exe')
 
 from distutils.sysconfig import get_python_lib
 site_packages_path = get_python_lib()
-plugins_path = os.path.join(site_packages_path, 'PyQt4', 'plugins', 'imageformats')
+plugins_path = os.path.join(site_packages_path, 'PyQt5', 'plugins', 'imageformats')
 image_format_dlls = map(
     lambda dll: os.path.join(plugins_path, dll),
     ['qjpeg4.dll', 'qgif4.dll', 'qico4.dll', 'qmng4.dll', 'qsvg4.dll', 'qtiff4.dll']

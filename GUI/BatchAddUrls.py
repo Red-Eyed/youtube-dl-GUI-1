@@ -1,4 +1,4 @@
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore
 from UI.BatchAddUrls import Ui_BatchAdd
 
 

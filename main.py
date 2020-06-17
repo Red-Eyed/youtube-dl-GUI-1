@@ -1,8 +1,8 @@
 import sys
 import os
 
-from PyQt4 import QtGui
-from PyQt4 import QtCore
+from PyQt5 import QtGui
+from PyQt5 import QtCore
 
 from UI.gui import Ui_MainWindow
 from GUI.BatchAddUrls import BatchAddDialogue

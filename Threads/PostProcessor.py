@@ -1,6 +1,6 @@
 __author__ = 'Yasoob'
 from youtube_dl.postprocessor.ffmpeg import FFmpegPostProcessor
-from PyQt4 import QtCore
+from PyQt5 import QtCore
 import os
 import math
 
