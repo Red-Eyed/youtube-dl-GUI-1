@@ -1,5 +1,6 @@
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import *
+
 from UI.BatchAddUrls import Ui_BatchAdd
 
 
@@ -14,9 +15,9 @@ class BatchAddDialogue(QDialog):
         self.ui.Add.clicked.connect(self.add_clicked)
 
     def browse_clicked(self):
-        file_name = str(QFileDialog.getOpenFileName(
+        file_name, _ = QFileDialog.getOpenFileName(
             self, "Select txt file", filter=str('*.txt')
-        ))
+        )
 
         if file_name is '':
             return

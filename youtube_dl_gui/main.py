@@ -55,12 +55,12 @@ class MainWindow(QMainWindow):
             return
 
     def set_destination(self):
-        file_name = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+        file_name = QFileDialog.getExistingDirectory(self, "Select Directory")
         if file_name is not '':
             self.ui.saveToLineEdit.setText(file_name)
 
     def browse_convert_destination(self):
-        file_name = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+        file_name = QFileDialog.getExistingDirectory(self, "Select Directory")
         if file_name is not '':
             self.ui.BrowseConvertToLineEdit.setText(file_name)
 
@@ -76,7 +76,7 @@ class MainWindow(QMainWindow):
             self.convert_file(file_path, out_path, preferred_format, delete_temp)
 
     def convert_file_browse(self):
-        file_names = [str(file_n) for file_n in list(
+        file_names = [str(file_n[0]) for file_n in list(
             QFileDialog.getOpenFileNames(self, "Select files",
                                                filter=str('Videos (*.mp4 *.ogg *.webm *.flv *.mkv)')
                                                ))
